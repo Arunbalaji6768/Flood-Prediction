@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rescue Force</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+            color: #333;
+        }
+        nav {
+            background: #0077b6;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            margin-left: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .home-container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .home-container h1 {
+            font-size: 3rem;
+            color: #0077b6;
+        }
+        .home-container p {
+            font-size: 1.2rem;
+            margin: 20px auto;
+            width: 60%;
+        }
+        .btn {
+            background: #0077b6;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #005f87;
+        }
+        .card {
+    background-color: #ffffff;
+    padding: 20px;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.card h4 {
+    margin: 0;
+    font-size: 15px;
+    color: #666;
+}
+.card p {
+    margin-top: 8px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #222;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <div><strong>🌊 RESCUE FORCE</strong></div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/plots">Plots</a>
+            <a href="/heatmap">Heatmap</a>
+            <a href="/predict">Predict</a>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

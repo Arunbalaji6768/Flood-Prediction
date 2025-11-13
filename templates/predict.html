@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center; padding: 40px;">
+    <h2>Select City!</h2>
+    <p>Select a city name to get information about it!</p>
+    <form method="POST" style="margin-top: 20px;">
+        <input type="text" name="city" placeholder="Enter a city" required style="padding: 10px; font-size: 16px;">
+        <button type="submit" class="btn">Go</button>
+    </form>
+</div>
+
+{% if prediction %}
+<div style="background-color: #f2f6fc; padding: 20px; margin: 20px auto; width: 90%; max-width: 800px; border-radius: 10px;">
+    <h3 style="text-align: center;">Information about {{ weather.city|lower }}</h3>
+    <div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: 20px 0;">
+        <h4>Flood Prediction</h4>
+        <h2 style="color: {{ 'green' if prediction == 'Safe' else 'red' }}">
+            Flood Risk: {{ prediction }} ({{ confidence }}% Confidence)
+        </h2>
+        <p>According to our ML model, we {{ 'did not detect any signs of a potential flood.' if prediction == 'Safe' else 'detected signs of a potential flood!' }}</p>
+    </div>
+
+    <!-- Ensemble Model Results -->
+    {% if individual_probs %}
+    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: 20px 0;">
+        <h4 style="text-align: center;">🧠 Ensemble Model Breakdown</h4>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
+            <div style="text-align: center;">
+                <h5>XGBoost</h5>
+                <div style="font-size: 18px; font-weight: bold; color: {% if individual_probs['XGBoost'] > 50 %}red{% else %}green{% endif %}">
+                    {{ individual_probs['XGBoost'] }}%
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <h5>Random Forest</h5>
+                <div style="font-size: 18px; font-weight: bold; color: {% if individual_probs['Random Forest'] > 50 %}red{% else %}green{% endif %}">
+                    {{ individual_probs['Random Forest'] }}%
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <h5>Logistic Regression</h5>
+                <div style="font-size: 18px; font-weight: bold; color: {% if individual_probs['Logistic Regression'] > 50 %}red{% else %}green{% endif %}">
+                    {{ individual_probs['Logistic Regression'] }}%
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 10px; font-size: 12px; color: #666;">
+            Final score weighted: XGBoost(40%) + Random Forest(40%) + Logistic(20%)
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- Weather Info Cards -->
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        <div class="card"><h4>Temperature (F)</h4><p>{{ weather.temp }}</p></div>
+        <div class="card"><h4>Max Temperature (F)</h4><p>{{ weather.max_temp }}</p></div>
+        <div class="card"><h4>Windspeed (mph)</h4><p>{{ weather.wind }}</p></div>
+        <div class="card"><h4>Cloud Cover (%)</h4><p>{{ weather.cloud }}</p></div>
+        <div class="card"><h4>Precipitation (mm)</h4><p>{{ weather.precip }}</p></div>
+        <div class="card"><h4>Humidity (%)</h4><p>{{ weather.humidity }}</p></div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
