@@ -6,8 +6,8 @@ import os
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
 
-API_KEY = "S6CVFET6UM8AY64E9UHX7R8Q2"
-MODEL_PATH = "C:/Users/manoj/Documents/Rescue/model/flood_model.pkl"  # Relative path
+API_KEY = os.environ.get("VISUAL_CROSSING_API_KEY", "")
+MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "flood_model.pkl")
 
 # Load trained models
 try:
