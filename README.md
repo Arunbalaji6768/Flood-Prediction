@@ -2,6 +2,10 @@
 
 A Flask-based web application that predicts flood risks using machine learning and visualizes flood data on interactive maps.
 
+🔗 **Live demo:** https://flood-prediction-rikr.onrender.com
+
+> Hosted on Render's free tier, so the first load after a period of inactivity can take about a minute.
+
 ## 🎯 Project Overview
 
 This application combines real-time weather data analysis with an ensemble machine learning model to predict flood risks for any given location. It provides users with interactive visualizations, confidence metrics, and location-based flood risk assessments.
@@ -97,8 +101,7 @@ The ML models use 6 weather parameters to predict flood risk:
    ```
 
 3. **Set up API credentials**
-   - Update `API_KEY` in `model/utils.py` with your Visual Crossing Weather API key
-   - Adjust `MODEL_PATH` to point to your trained model file
+   - Set the `VISUAL_CROSSING_API_KEY` environment variable to your Visual Crossing Weather API key
 
 4. **Run the application**
    ```bash
@@ -155,11 +158,11 @@ Key packages used:
 
 ## 🔧 Configuration
 
-Update these variables in `model/utils.py`:
-```python
-API_KEY = "YOUR_API_KEY"  # Visual Crossing Weather API key
-MODEL_PATH = "path/to/flood_model.pkl"  # Path to trained model
+Set this environment variable (locally or in your hosting dashboard):
+```bash
+VISUAL_CROSSING_API_KEY=your_key_here
 ```
+The model is loaded from `model/flood_model.pkl` automatically.
 
 ## 📝 Usage Examples
 
