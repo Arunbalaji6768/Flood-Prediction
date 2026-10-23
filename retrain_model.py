@@ -11,6 +11,11 @@ import joblib
 # Load dataset
 df = pd.read_csv("flood_training_data.csv")
 
+# The training CSV stores temperatures in degrees Fahrenheit, but the app feeds the model
+# metric data (degrees Celsius) from the Visual Crossing API, so convert before training.
+for col in ("Temperature", "Max_Temp"):
+    df[col] = (df[col] - 32) * 5 / 9
+
 # Features and target
 X = df.drop("Flood", axis=1)
 y = df["Flood"]
